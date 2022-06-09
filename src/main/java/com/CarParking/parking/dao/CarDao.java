@@ -1,5 +1,4 @@
 //package dao;
-//
 //import org.hibernate.Session;
 //import org.hibernate.Transaction;
 //import utils.HibernateSessionFactoryUtil;import java.util.List;
