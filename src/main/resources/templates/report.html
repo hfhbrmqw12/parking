@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Отчёты</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container py-3">
+    <header th:insert="blocks/header::header"></header>
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal">Места на парковке</h1>
+    </div>
+    <main>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <table style="margin: auto;">
+                <tr>
+                    <td>Место</td>
+                    <td>Номер автомобиля</td>
+                    <td>Дата заезда</td>
+                    <td>Дата выезда</td>
+                    <td>Оплачено</td>
+                </tr>
+                <tr th:each="car : ${cars}" class="alert alert-info mt-2">
+                    <td th:text="${car.getParkingNumber()}"></td>
+                    <td th:text="${car.getCarNumber()}"></td>
+                    <td th:text="${car.getParkingTimeStart()}"></td>
+                    <td th:text="${car.getParkingTimeEnd()}"></td>
+                    <td><div th:if="${car.parkingPaid}">
+                        <p th:text="'Да'"/>
+                    </div>
+                        <div th:unless="${car.parkingPaid}">
+                            <p th:text="'Нет'"/>
+                        </div></td>
+                </tr>
+            </table>
+
+    </main>
+    <footer th:insert="blocks/footer::footer"></footer>
+</div>
+</body>
+</html>

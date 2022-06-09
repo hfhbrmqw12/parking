@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Проверка автомобиля</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container py-3">
+    <header th:insert="blocks/header::header"></header>
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal">Проверка автомобиля</h1>
+    </div>
+    <main>
+
+        <div>
+            <div th:if="${response}==null"></div>
+            <div th:if="${error}">
+                <p th:text="'Произошла ошибка'"/>
+            </div>
+            <div th:if="${response?.getRequestResult()?.getCount()}==1">
+                <p style="color: red">Автомобиль в розыске!</p>
+                <p th:text="'VIN: '+${response?.getRequestResult()?.getRecords()?.get(0).getVin()}"/>
+                <p th:text="'Кузов: '+${response?.getRequestResult()?.getRecords()?.get(0).getKuzov()}"/>
+                <p th:text="'Модель: '+${response?.getRequestResult()?.getRecords()?.get(0).getModel()}"/>
+                <p th:text="'Год выпуска: '+${response?.getRequestResult()?.getRecords()?.get(0).getGodVyp()}"/>
+                <p th:text="'Регион: '+${response?.getRequestResult()?.getRecords()?.get(0).getRegion()}"/>
+                <p th:text="'Дата подачи в розыск: '+${response?.getRequestResult()?.getRecords()?.get(0).getDateWanted()}"/>
+            </div>
+            <div th:if="${response?.getRequestResult()?.getCount()}==0">
+                Автомобиль не в розыске <p th:text="' (VIN: '+${response?.getVin()}+')'"/>
+            </div>
+<!--            <p th:text="'Дата заезда: '+${response?.getRequestResult()?.getCount()}"/>-->
+            <form action="/car-check/check">
+                <input name="vin" required class="form-control" placeholder="Введите VIN"><br>
+                <button type="submit" class="btn btn-success">Проверить</button>
+            </form>
+            <br><br>
+            <p style="size: 8px!important;">разыскиваемая: XTC65111081155843<br>
+            не в розыске: XUUNA196J80036874</p>
+        </div>
+
+    </main>
+    <footer th:insert="blocks/footer::footer"></footer>
+</div>
+</body>
+</html>

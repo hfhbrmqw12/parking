@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Главная</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container py-3">
+    <header th:insert="blocks/header::header"></header>
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal">Парковка</h1>
+    </div>
+    <main>
+        <a href="/car/add" class="btn btn-warning">Добавить автомобиль</a>
+            <div th:each="car : ${cars}" class="alert alert-info mt-2">
+                <h3 th:text="'Парковочное место: '+${car.parkingNumber}"/>
+                <p th:text="'Номер автомобиля: '+${car.carNumber}"/>
+                <div th:if="${car.parkingPaid}">
+                    <p th:text="'Парковка оплачена: Да'"/>
+                </div>
+                <div th:unless="${car.parkingPaid}">
+                    <p th:text="'Парковка оплачена: Нет'"/>
+                </div>
+                <p th:text="'Дата заезда: '+${car.parkingTimeStart}"/>
+                <p th:text="'Предполагаемая дата выезда: '+${car.parkingTimeEnd}"/>
+                <a th:href="'/car/' + ${car.id}" class="btn btn-warning">Подробнее</a>
+            </div>
+    </main>
+    <footer th:insert="blocks/footer::footer"></footer>
+</div>
+</body>
+</html>

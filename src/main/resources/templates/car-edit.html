@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактирование информации</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container py-3">
+    <header th:insert="blocks/header::header"></header>
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal">Редактирование информации</h1>
+    </div>
+    <main class="container mt-5 mb-5">
+        <div th:each="car : ${cars}">
+            <form method="post">
+                <input name="parkingNumber" th:value="${car.parkingNumber}" required class="form-control" placeholder="Парковочное место"><br>
+                <input name="carNumber" th:value="${car.carNumber}" required class="form-control" placeholder="Номер автомобиля"><br>
+                <input name="carModel" th:value="${car.carModel}" required class="form-control" placeholder="Модель автомобиля"><br>
+                <input name="carColor" th:value="${car.carColor}" required class="form-control" placeholder="Цвет автомобиля"><br>
+                <input name="parkingSum" th:value="${car.parkingSum}" class="form-control" placeholder="Цена парковки"><br>
+                <label for="parkingTimeStart" style="line-height: 35px;padding-left: 5px;">Дата заезда</label>
+                <input type="date" name="parkingTimeStart" th:value="${car.parkingTimeStart}" id="parkingTimeStart" class="form-control"><br>
+                <label for="parkingTimeEnd" style="line-height: 35px;padding-left: 5px;">Предполагаемая дата выезда</label>
+                <input type="date" name="parkingTimeEnd" th:value="${car.parkingTimeEnd}" id="parkingTimeEnd" class="form-control"><br>
+                <input type="checkbox" id="parkingPaid" name="parkingPaid" class=""> <label for="parkingPaid">Оплачено</label><br><br>
+                <textarea name="comment" th:text="${car.comment}" class="form-control" placeholder="Комментарий"></textarea><br>
+                <button type="submit" class="btn btn-success">Сохранить</button>
+            </form>
+        </div>
+    </main>
+    <footer th:insert="blocks/footer::footer"></footer>
+</div>
+</body>
+</html>
